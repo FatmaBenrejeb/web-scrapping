@@ -1,26 +1,20 @@
 # web-scrapping
 
-import pandas as pd
 from bs4 import BeautifulSoup
 import requests
 
-product=[]
-prices=[]
-desc=[]
-promo=[]
-page = requests.get("https://www.animoes.tn/categorie-produit/boutique_chats/")
+products=[] #List to store name of the product
+#prices=[] #List to store price of the product
+#ratings=[] #List to store rating of the product
+
+page = requests.get("https://www.flipkart.com/laptops/a~buyback-guarantee-on-laptops-/pr?sid=6bo%2Cb5g&amp;amp;amp;amp;amp;amp;amp;amp;amp;uniq=")
 
 soup = BeautifulSoup(page.content,'html.parser')
-#print(soup.prettify())
-#print(soup.children)
+
 for a in soup.findAll('a',href=True, attrs={'class':'_1fQZEK'}):
-    name=a.find('div', attrs={'class':'_4rR01T'})
-    description=a.find('div', attrs={'class':'fMghEO'})
-    price=a.find('div', attrs={'class':'_3tbKJL'})
-    promotion=a.find('div', attrs={'class':'_3Ay6Sb'})
-    products.append(name.text)
-    prices.append(price.text)
-    desc.append(description.text)
-    promo.append(promotion.text)
-df = pd.DataFrame({'Product Name':product,'Descriptions':desc,'Price':prices,'Promotions':promo}) 
-df.to_csv('products.csv', index=False, encoding='utf-8')
+    prod={}
+    prod['name']=a.find('div', attrs={'class':'_4rR01T'}).text
+    prod['price']=a.find('div',attrs={'class':'_30jeq3 _1_WHN1'}).text
+    products.append(prod)
+
+#print(products) #this shows {'product': , 'price': }
