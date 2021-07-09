@@ -1,0 +1,28 @@
+to scrap data from a facebook page : we change "www." to "mbasic."
+==> This allows you view a simpler html code of the page 
+
+
+
+from bs4 import BeautifulSoup
+import requests
+import pandas as pd
+
+user=[] #List to store name of the user
+comments=[] #List to store the comments of a user
+#ratings=[] #List to store rating of the product
+
+page = requests.get("https://mbasic.facebook.com/SocieteTunisiennedeBanquePageOfficielle/posts/1708860612632832")
+soup = BeautifulSoup(page.content,'html.parser')
+
+#print(soup.prettify()) =====>> OK!
+results=soup.findAll('a', href=True,attrs={'class':'ej bf'})
+#for div in soup.findAll('div',attrs={'class':'ei'}):
+ #   for h in soup.findAll('h3'):
+  #     name=h.find('a', attrs={'class':'ej bf'}).text
+   #    user.append(name)
+    #comment=div.find('div',attrs={'class':'ek'}).text
+    #comments.append(comment)
+
+print(results)
+#df=pd.DataFrame({'Product Name':products,'Price':prices})
+#df.to_excel('./produit.xlsx', sheet_name='produits')
