@@ -20,13 +20,17 @@ for user in user_name_list:
     #print(user.find('a',attrs={'class':'_1s79 _52jh'}).href) ERREUR!! url user!
     #print(user.find('a',attrs={'class':'_1s79 _52jh'}).text) OK!!
     user_name.append(user.find('a',attrs={'class':'_1s79 _52jh'}).text)
-#print(user_name) OK!!
+    user_name_url.append(user.find('a',attrs={'class':'_1s79 _52jh'}).get('href')) #OKKKK!!!!!!!
+print(user_name_url) #OK!!
+print(user_name) #OK!!
 
 for comment in user_comment_list:
     #print(comment.text)
     user_comment.append(comment.text)
-#print(user_comment) OK!!
+print(user_comment) #OK!!
 
-df=pd.DataFrame({'User Name':user_name,'Comment':user_comment})
+df=pd.DataFrame({'User Name':user_name,'User_fb_url':user_name_url,'Comment':user_comment})
 df.to_excel('./stb.xlsx', sheet_name='stage')
+
+
 
