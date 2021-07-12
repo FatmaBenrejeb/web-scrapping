@@ -1,0 +1,16 @@
+from bs4 import BeautifulSoup
+import requests
+import pandas as pd
+
+page = requests.get("https://mbasic.facebook.com/SocieteTunisiennedeBanquePageOfficielle/")
+soup = BeautifulSoup(page.content,'html.parser')
+
+publications=[]
+#r = soup.find('div',attrs={'id':'timelineBody'})
+#par = soup.find('article').find("div",attrs={'class':'gl gm'}).find_all('a')
+
+#r = soup.find_all('a',attrs={'class':'gn go gp'})
+res=soup.find_all('a')
+for i in res:
+    print(i.get('href'))
+        
