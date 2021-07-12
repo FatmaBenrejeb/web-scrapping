@@ -27,6 +27,6 @@ for comment in user_comment_list:
     user_comment.append(comment.text)
 #print(user_comment) OK!!
 
+df=pd.DataFrame({'User Name':user_name,'Comment':user_comment})
+df.to_excel('./stb.xlsx', sheet_name='stage')
 
-#df=pd.DataFrame({'Product Name':products,'Price':prices})
-#df.to_excel('./produit.xlsx', sheet_name='produits')
