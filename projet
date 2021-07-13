@@ -40,8 +40,7 @@ for pub in publications:
     user_comment=[]
     user_comment_list = sp.find_all('div',attrs={'class':'_14ye'})
     #print(user_name_list) #OK!!!
-    print(pub)
-    print("###########")
+   
     for user in user_name_list:
         user_name.append(user.find('a').text)
         user_name_url.append(user.find('a').get('href')) #OKKKK!!!!!!!
