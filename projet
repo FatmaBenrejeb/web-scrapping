@@ -1,0 +1,58 @@
+from bs4 import BeautifulSoup
+import requests
+import pandas as pd
+
+p = requests.get("https://mbasic.facebook.com/SocieteTunisiennedeBanquePageOfficielle/")
+soup = BeautifulSoup(p.content,'html.parser')
+
+path = r"C:\Users\HP\stb_publications.xlsx"
+
+publications=[]
+
+res=soup.find('div',attrs={'id':'structured_composer_async_container'})
+a=res.find_all('a')
+#print(a)
+for i in a:
+    link=i.get('href')
+    if(link.startswith('/SocieteTunisiennedeBanquePageOfficielle/photos/')):
+        #print(link) 
+        #pub_link='https://mbasic.facebook.com'+link
+        #print(pub_link)
+        #OKKK!!!! lien de chaque publication
+        publications.append(link)
+#print(publications)
+df=pd.DataFrame({'lien_publication':publications})
+df.to_excel(writer, sheet_name = 'Liste_publications')
+writer = pd.ExcelWriter(path, engine = 'xlsxwriter')  
+
+n=0
+for pub in publications:
+    page= requests.get('https://mbasic.facebook.com'+pub)
+    sp = BeautifulSoup(page.text,'html.parser')
+
+    user_name=[]
+    user_name_url=[]
+    user_name_list = sp.find_all('h3')
+    user_comment=[]
+    user_comment_list = sp.find_all('div',attrs={'class':'_14ye'})
+    #print(user_name_list) #OK!!!
+
+    for user in user_name_list:
+        user_name.append(user.find('a',attrs={'class':'_1s79 _52jh'}).text)
+        user_name_url.append(user.find('a',attrs={'class':'_1s79 _52jh'}).get('href')) #OKKKK!!!!!!!
+    #print(user_name_url) #OK!!
+    #print(user_name) #OK!!
+
+    for comment in user_comment_list:
+        #print(comment.text)
+        user_comment.append(comment.text)
+    #print(user_comment) #OK!!
+    
+    
+    df3 = pd.DataFrame({'User Name':user_name,'User_fb_url':user_name_url,'Comment':user_comment})
+    df3.to_excel(writer, sheet_name = 'pub N'+str(n))
+    writer = pd.ExcelWriter(path, engine = 'xlsxwriter')  
+    n=n+1
+
+writer.save()
+writer.close()
