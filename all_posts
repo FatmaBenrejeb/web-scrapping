@@ -18,10 +18,12 @@ for i in a:
     #r=link.startswith('/SocieteTunisiennedeBanquePageOfficielle/')
     if(link.startswith('/SocieteTunisiennedeBanquePageOfficielle/photos/')):
         #print(link) 
-        pub_link='https://mbasic.facebook.com'+link
+        #pub_link='https://mbasic.facebook.com'+link
         #print(pub_link)
         #OKKK!!!! lien de chaque publication
-        publications.append(pub_link)
+        publications.append(link)
 #print(publications)
-    
+
+df=pd.DataFrame({'lien_publication':publications})
+df.to_excel('./stb_publications.xlsx', sheet_name='stage')
 
