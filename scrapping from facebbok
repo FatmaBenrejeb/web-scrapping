@@ -17,12 +17,10 @@ user_comment_list = soup.find_all('div',attrs={'class':'_14ye'})
 #print(user_name_list) #OK!!!
 
 for user in user_name_list:
-    #print(user.find('a',attrs={'class':'_1s79 _52jh'}).href) ERREUR!! url user!
-    #print(user.find('a',attrs={'class':'_1s79 _52jh'}).text) OK!!
-    user_name.append(user.find('a',attrs={'class':'_1s79 _52jh'}).text)
+    user_name.append(user.find('a').text)
     user_name_url.append(user.find('a',attrs={'class':'_1s79 _52jh'}).get('href')) #OKKKK!!!!!!!
-print(user_name_url) #OK!!
-print(user_name) #OK!!
+#print(user_name_url) #OK!!
+#print(user_name) #OK!!
 
 for comment in user_comment_list:
     #print(comment.text)
