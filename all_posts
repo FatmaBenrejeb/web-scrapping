@@ -10,7 +10,18 @@ publications=[]
 #par = soup.find('article').find("div",attrs={'class':'gl gm'}).find_all('a')
 
 #r = soup.find_all('a',attrs={'class':'gn go gp'})
-res=soup.find_all('a')
-for i in res:
-    print(i.get('href'))
-        
+res=soup.find('div',attrs={'id':'structured_composer_async_container'})
+a=res.find_all('a')
+#print(a)
+for i in a:
+    link=i.get('href')
+    #r=link.startswith('/SocieteTunisiennedeBanquePageOfficielle/')
+    if(link.startswith('/SocieteTunisiennedeBanquePageOfficielle/photos/')):
+        #print(link) 
+        pub_link='https://mbasic.facebook.com'+link
+        #print(pub_link)
+        #OKKK!!!! lien de chaque publication
+        publications.append(pub_link)
+#print(publications)
+    
+
