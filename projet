@@ -22,7 +22,7 @@ for i in a:
         publications.append(link)
 #print(publications)
 
-path = r"C:\Users\HP\stbPubfinal.xlsx"
+path = r"C:\Users\Dream\stbPub.xlsx"
 writer = pd.ExcelWriter(path, engine = 'xlsxwriter')  
 
 df=pd.DataFrame({'lien_publication':publications})
@@ -45,16 +45,18 @@ for pub in publications:
         user_name.append(user.find('a').text)
         user_name_url.append(user.find('a').get('href')) #OKKKK!!!!!!!
     #print(user_name_url) #OK!!
-    print(user_name) #OK!!
+    #print(user_name) #OK!!
 
     for comment in user_comment_list:
         #print(comment.text)
         user_comment.append(comment.text)
     #print(user_comment) #OK!!
 
-    df3 = pd.DataFrame({'User Name':user_name,'User_fb_url':user_name_url,'Comment':user_comment})
+    a={'User Name':user_name,'User_fb_url':user_name_url,'Comment':user_comment}
+    df3 = pd.DataFrame.from_dict(a, orient='index')
     df3.to_excel(writer, sheet_name = 'pub N'+str(n))
     n=n+1
-
+    df3 = df3.transpose()
+    
 writer.save()
-writer.close()
+
