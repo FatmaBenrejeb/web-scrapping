@@ -1,0 +1,46 @@
+# Python program to find the k most frequent words
+# from data set
+from collections import Counter
+from bs4 import BeautifulSoup
+import requests
+
+
+p = requests.get("https://mbasic.facebook.com/SocieteTunisiennedeBanquePageOfficielle/photos/a.431217617063811/1712651892253704/")
+soup = BeautifulSoup(p.content,'html.parser')
+
+user_comment_list = soup.find_all('div',attrs={'class':'_14ye'})
+
+data_set = ""
+
+for comment in user_comment_list:
+    #if(comment.get_text().find("ans")!=-1):
+        ################"haja"
+    data_set= data_set + comment.get_text() + "\n"
+    #print(data_set)
+
+# split() returns list of all the words in the string
+split_it = data_set.split()
+
+# Pass the split_it list to instance of Counter class.
+Counter = Counter(split_it)
+
+# most_common() produces k frequently encountered
+# input values and their respective counts.
+most_occur = Counter.most_common(3)
+
+#print(most_occur)
+
+
+def produit_par_comment(comment):
+    product_list=["double salire","credit","9ardh","9arth"]
+    for p in product_list:
+        if(comment.find(p)!=-1):
+            res=p
+            break
+        else:
+            res="Neutre"
+    return(res)
+
+c="A3touni 9arthi yahdikom wala rani bech nwasilha lia3la Haram wfar3 menzel Bourguiba rahi bech iti7 fih rou7"
+print(produit_par_comment(c))
+            
